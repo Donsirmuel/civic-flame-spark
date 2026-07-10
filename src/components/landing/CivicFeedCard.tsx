@@ -3,21 +3,23 @@ import { ArrowUp, CheckCircle2, MessageCircle, TrendingUp } from "lucide-react";
 
 export function CivicFeedCard() {
   return (
-    <div className="relative w-full max-w-md">
+    <div className="group relative w-full max-w-md">
       {/* floating sticker: upvote counter */}
       <motion.div
         initial={{ opacity: 0, y: -20, rotate: -20 }}
         animate={{ opacity: 1, y: 0, rotate: -12 }}
         transition={{ duration: 0.7, delay: 0.9, ease: [0.16, 1, 0.3, 1] }}
-        className="absolute -left-6 -top-6 z-20 rounded-2xl border border-primary/20 bg-card px-4 py-3 shadow-[0_12px_30px_-12px_rgba(0,0,0,0.2)] md:-left-10"
+        className="absolute -left-6 -top-6 z-20 md:-left-10"
       >
-        <div className="flex items-center gap-2">
-          <div className="flex h-8 w-8 items-center justify-center rounded-full bg-primary text-primary-foreground">
-            <ArrowUp className="h-4 w-4" />
-          </div>
-          <div>
-            <p className="text-lg font-bold leading-none text-foreground">+128</p>
-            <p className="text-[9px] uppercase tracking-wider text-muted-foreground">this hour</p>
+        <div className="float-a origin-center rounded-2xl border border-primary/20 bg-card px-4 py-3 shadow-[0_12px_30px_-12px_rgba(0,0,0,0.2)] transition-transform duration-300 hover:scale-105 hover:rotate-[-8deg]">
+          <div className="flex items-center gap-2">
+            <div className="flex h-8 w-8 items-center justify-center rounded-full bg-primary text-primary-foreground">
+              <ArrowUp className="animate-tick h-4 w-4" />
+            </div>
+            <div>
+              <p className="text-lg font-bold leading-none text-foreground">+128</p>
+              <p className="text-[9px] uppercase tracking-wider text-muted-foreground">this hour</p>
+            </div>
           </div>
         </div>
       </motion.div>
@@ -27,12 +29,14 @@ export function CivicFeedCard() {
         initial={{ opacity: 0, scale: 0.6, rotate: 20 }}
         animate={{ opacity: 1, scale: 1, rotate: 8 }}
         transition={{ duration: 0.7, delay: 1.05, ease: [0.16, 1, 0.3, 1] }}
-        className="absolute -right-4 top-16 z-20 flex items-center gap-1.5 rounded-full bg-accent px-3 py-1.5 shadow-[0_10px_24px_-10px_rgba(0,0,0,0.25)] md:-right-8"
+        className="absolute -right-4 top-16 z-20 md:-right-8"
       >
-        <CheckCircle2 className="h-3.5 w-3.5 text-foreground" />
-        <span className="text-[10px] font-bold uppercase tracking-wider text-foreground">
-          Gov. Verified
-        </span>
+        <div className="float-b flex items-center gap-1.5 rounded-full bg-accent px-3 py-1.5 shadow-[0_10px_24px_-10px_rgba(0,0,0,0.25)] transition-transform duration-300 hover:scale-110 hover:rotate-[12deg]">
+          <CheckCircle2 className="h-3.5 w-3.5 text-foreground" />
+          <span className="text-[10px] font-bold uppercase tracking-wider text-foreground">
+            Gov. Verified
+          </span>
+        </div>
       </motion.div>
 
       {/* floating sticker: trending */}
@@ -40,11 +44,13 @@ export function CivicFeedCard() {
         initial={{ opacity: 0, y: 20, rotate: 15 }}
         animate={{ opacity: 1, y: 0, rotate: 6 }}
         transition={{ duration: 0.7, delay: 1.2, ease: [0.16, 1, 0.3, 1] }}
-        className="absolute -bottom-4 -right-6 z-20 rounded-xl border border-hairline bg-card px-3 py-2 shadow-[0_10px_24px_-10px_rgba(0,0,0,0.2)] md:-right-10"
+        className="absolute -bottom-4 -right-6 z-20 md:-right-10"
       >
-        <div className="flex items-center gap-1.5">
-          <TrendingUp className="h-3.5 w-3.5 text-primary" />
-          <span className="text-[11px] font-semibold text-foreground">#WaterForUmudim</span>
+        <div className="float-c rounded-xl border border-hairline bg-card px-3 py-2 shadow-[0_10px_24px_-10px_rgba(0,0,0,0.2)] transition-transform duration-300 hover:scale-105 hover:rotate-[2deg]">
+          <div className="flex items-center gap-1.5">
+            <TrendingUp className="h-3.5 w-3.5 text-primary" />
+            <span className="text-[11px] font-semibold text-foreground">#WaterForUmudim</span>
+          </div>
         </div>
       </motion.div>
 
@@ -57,11 +63,11 @@ export function CivicFeedCard() {
       >
         {/* peeking card behind */}
         <div
-          className="absolute -bottom-6 left-6 right-6 h-24 rotate-2 rounded-2xl border border-hairline/60 bg-card/70 shadow-sm"
+          className="absolute -bottom-6 left-6 right-6 h-24 rotate-2 rounded-2xl border border-hairline/60 bg-card/70 shadow-sm transition-transform duration-500 group-hover:rotate-3 group-hover:translate-y-1"
           aria-hidden
         />
 
-        <div className="relative rounded-2xl border border-primary/20 bg-card shadow-[0_30px_60px_-30px_rgba(15,81,50,0.35),0_10px_30px_-15px_rgba(0,0,0,0.15)]">
+        <div className="feed-card relative rounded-2xl border border-primary/20 bg-card shadow-[0_30px_60px_-30px_rgba(15,81,50,0.35),0_10px_30px_-15px_rgba(0,0,0,0.15)]">
           {/* header */}
           <div className="flex items-center justify-between border-b border-hairline/50 px-5 py-3">
             <div className="flex items-center gap-2">
