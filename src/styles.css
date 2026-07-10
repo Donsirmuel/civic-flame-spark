@@ -144,6 +144,87 @@
   animation: live-pulse 1.6s ease-in-out infinite;
 }
 
+/* ---------- CTA micro-interactions ---------- */
+
+/* Shared base: lift + press feedback + focus ring */
+@utility cta-base {
+  position: relative;
+  isolation: isolate;
+  transition:
+    transform 220ms cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 220ms cubic-bezier(0.16, 1, 0.3, 1),
+    background-color 220ms ease,
+    border-color 220ms ease,
+    color 220ms ease;
+  will-change: transform;
+}
+.cta-base:hover { transform: translateY(-2px); }
+.cta-base:active { transform: translateY(0); transition-duration: 80ms; }
+.cta-base:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--background), 0 0 0 4px var(--accent);
+}
+
+/* Primary CTA: shine sweep on hover */
+@utility cta-primary {
+  overflow: hidden;
+}
+.cta-primary::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    110deg,
+    transparent 30%,
+    color-mix(in oklab, white 45%, transparent) 50%,
+    transparent 70%
+  );
+  transform: translateX(-120%);
+  transition: transform 700ms cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: none;
+  z-index: 1;
+}
+.cta-primary:hover::after { transform: translateX(120%); }
+.cta-primary:hover {
+  box-shadow: 0 18px 40px -14px color-mix(in oklab, var(--primary) 70%, transparent);
+}
+
+/* Ghost/secondary CTA: fill sweeps from left, text stays legible */
+@utility cta-ghost {
+  overflow: hidden;
+}
+.cta-ghost::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--foreground);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 380ms cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: -1;
+}
+.cta-ghost:hover::before { transform: scaleX(1); }
+.cta-ghost:hover { color: var(--background); border-color: var(--foreground); }
+
+/* Nav pill: soft glow ring on hover */
+@utility cta-pill {
+  transition:
+    transform 200ms ease,
+    box-shadow 300ms ease,
+    background-color 200ms ease;
+}
+.cta-pill:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 24px -10px color-mix(in oklab, var(--primary) 65%, transparent);
+}
+.cta-pill:active { transform: translateY(0); }
+.cta-pill:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--background), 0 0 0 4px var(--accent);
+}
+
+
+
 /* Floating badges — each drifts on its own tempo so they feel independent */
 @keyframes float-a {
   0%, 100% { transform: translate(0, 0) rotate(-12deg); }
