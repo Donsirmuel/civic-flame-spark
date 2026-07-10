@@ -9,10 +9,10 @@ export function TwoSides() {
             For Citizens
           </p>
           <h3 className="font-display mt-4 text-3xl leading-tight tracking-tight md:text-4xl">
-            Your voice, set in type big enough for a minister to read.
+            Say it once. Put it where it can't be ignored.
           </h3>
           <a
-            href="#join"
+            href="/signup"
             className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-primary hover:underline"
           >
             Sign up <ArrowUpRight className="h-4 w-4" />
@@ -24,13 +24,13 @@ export function TwoSides() {
             For Officials
           </p>
           <h3 className="font-display mt-4 text-3xl leading-tight tracking-tight md:text-4xl">
-            Meet the people you serve — before the next election reminds you.
+            Meet the people you serve — not just at election time.
           </h3>
           <a
-            href="#join"
+            href="/signup"
             className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-accent hover:underline"
           >
-            Request verification <ArrowUpRight className="h-4 w-4" />
+            Sign up as an official <ArrowUpRight className="h-4 w-4" />
           </a>
         </div>
       </div>

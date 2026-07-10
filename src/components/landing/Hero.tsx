@@ -40,9 +40,8 @@ export function Hero() {
             transition={{ duration: 0.7, delay: 0.48, ease: "easeOut" }}
             className="mt-8 max-w-xl text-[17px] leading-relaxed text-foreground/75"
           >
-            CivicNet is the public square for citizens of developing countries — post your grievances
-            and opinions, and reach verified officials from your local ward all the way to the federal
-            ministry. Accountability, in the open.
+            CivicNet is where citizens and verified government officials meet — from your local ward
+            to the federal level. Post what's wrong. Get a real reply.
           </motion.p>
 
           <motion.div
@@ -51,13 +50,13 @@ export function Hero() {
             className="mt-9 flex flex-col items-start gap-3 sm:flex-row sm:items-center sm:gap-4"
           >
             <a
-              href="#join"
+              href="/signup"
               className="inline-flex items-center justify-center rounded-full bg-primary px-6 py-3.5 text-sm font-semibold text-primary-foreground shadow-[0_10px_30px_-12px_rgba(15,81,50,0.6)] transition-all hover:brightness-110"
             >
               Sign Up as a Citizen
             </a>
             <a
-              href="#join"
+              href="/signup"
               className="inline-flex items-center justify-center gap-2 rounded-full border border-foreground/25 bg-transparent px-6 py-3.5 text-sm font-semibold text-foreground transition-all hover:border-foreground/50 hover:bg-foreground/[0.03]"
             >
               <CheckCircle2 className="h-4 w-4 text-primary" />
