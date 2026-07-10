@@ -51,16 +51,16 @@ export function Hero() {
           >
             <a
               href="/signup"
-              className="inline-flex items-center justify-center rounded-full bg-primary px-6 py-3.5 text-sm font-semibold text-primary-foreground shadow-[0_10px_30px_-12px_rgba(15,81,50,0.6)] transition-all hover:brightness-110"
+              className="cta-base cta-primary inline-flex items-center justify-center rounded-full bg-primary px-6 py-3.5 text-sm font-semibold text-primary-foreground shadow-[0_10px_30px_-12px_rgba(15,81,50,0.6)]"
             >
-              Sign Up as a Citizen
+              <span className="relative z-[2]">Sign Up as a Citizen</span>
             </a>
             <a
               href="/signup"
-              className="inline-flex items-center justify-center gap-2 rounded-full border border-foreground/25 bg-transparent px-6 py-3.5 text-sm font-semibold text-foreground transition-all hover:border-foreground/50 hover:bg-foreground/[0.03]"
+              className="cta-base cta-ghost inline-flex items-center justify-center gap-2 rounded-full border border-foreground/25 bg-transparent px-6 py-3.5 text-sm font-semibold text-foreground"
             >
-              <CheckCircle2 className="h-4 w-4 text-primary" />
-              I'm a Government Official
+              <CheckCircle2 className="relative z-[2] h-4 w-4 text-primary transition-colors duration-300 group-hover:text-accent" />
+              <span className="relative z-[2]">I'm a Government Official</span>
             </a>
           </motion.div>
 

@@ -37,26 +37,45 @@ export function Chapters() {
   return (
     <section id="chapters" className="relative">
       <div className="mx-auto max-w-[1400px] px-6 py-24 md:px-10 md:py-32">
-        <div className="flex items-baseline justify-between border-b border-hairline pb-6">
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.6, ease: "easeOut" }}
+          className="flex items-baseline justify-between border-b border-hairline pb-6"
+        >
           <p className="text-[10px] font-semibold uppercase tracking-[0.28em] text-muted-foreground">
             How it works
           </p>
           <h2 className="font-display text-3xl leading-tight tracking-tight md:text-5xl">
             Simple, on purpose.
           </h2>
-        </div>
+        </motion.div>
 
         <div className="mt-14 grid grid-cols-1 gap-x-16 md:grid-cols-2">
           {chapters.map((c, i) => (
             <motion.article
               key={c.n}
-              initial={{ opacity: 0, y: 24 }}
+              initial={{ opacity: 0, y: 28 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-80px" }}
-              transition={{ duration: 0.55, delay: (i % 2) * 0.08, ease: "easeOut" }}
+              viewport={{ once: true, margin: "-60px" }}
+              transition={{
+                duration: 0.6,
+                delay: 0.06 * Math.floor(i / 2) + (i % 2) * 0.09,
+                ease: [0.16, 1, 0.3, 1],
+              }}
               className="group relative grid grid-cols-[auto_1fr] items-baseline gap-6 border-b border-hairline/70 py-8"
             >
-              <span className="text-2xl font-bold tabular-nums text-primary md:text-3xl">
+              {/* accent rule that grows in from the left when in view */}
+              <motion.span
+                aria-hidden
+                initial={{ scaleX: 0 }}
+                whileInView={{ scaleX: 1 }}
+                viewport={{ once: true, margin: "-60px" }}
+                transition={{ duration: 0.7, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
+                className="absolute left-0 top-0 h-px w-10 origin-left bg-accent"
+              />
+              <span className="text-2xl font-bold tabular-nums text-primary transition-colors duration-300 group-hover:text-accent md:text-3xl">
                 {c.n}
               </span>
               <div>

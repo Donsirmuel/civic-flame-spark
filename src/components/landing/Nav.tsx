@@ -21,7 +21,7 @@ export function Nav() {
           </a>
           <a
             href="/signup"
-            className="inline-flex items-center justify-center rounded-full bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-all hover:brightness-110"
+            className="cta-pill inline-flex items-center justify-center rounded-full bg-primary px-4 py-2 text-sm font-medium text-primary-foreground"
           >
             Sign Up
           </a>

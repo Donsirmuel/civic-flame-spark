@@ -14,15 +14,15 @@ export function ClosingBand() {
         <div className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row">
           <a
             href="/signup"
-            className="inline-flex items-center justify-center rounded-full bg-primary px-7 py-4 text-sm font-semibold text-primary-foreground shadow-[0_15px_40px_-12px_rgba(15,81,50,0.5)] transition-all hover:brightness-110"
+            className="cta-base cta-primary inline-flex items-center justify-center rounded-full bg-primary px-7 py-4 text-sm font-semibold text-primary-foreground shadow-[0_15px_40px_-12px_rgba(15,81,50,0.5)]"
           >
-            Sign Up
+            <span className="relative z-[2]">Sign Up</span>
           </a>
           <a
             href="/login"
-            className="inline-flex items-center justify-center rounded-full border border-foreground/25 px-7 py-4 text-sm font-semibold text-foreground transition-all hover:border-foreground/50"
+            className="cta-base cta-ghost inline-flex items-center justify-center rounded-full border border-foreground/25 px-7 py-4 text-sm font-semibold text-foreground"
           >
-            Log in
+            <span className="relative z-[2]">Log in</span>
           </a>
         </div>
         <p className="mt-6 text-xs uppercase tracking-[0.22em] text-foreground/60">
