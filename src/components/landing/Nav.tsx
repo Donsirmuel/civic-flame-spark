@@ -1,4 +1,9 @@
+import { Link } from "@tanstack/react-router";
+import { useSession } from "@/hooks/use-session";
+
 export function Nav() {
+  const { session } = useSession();
+
   return (
     <header className="relative z-10 border-b border-hairline/60">
       <div className="mx-auto flex max-w-[1400px] items-center justify-between gap-6 px-6 py-4 md:px-10">
@@ -13,18 +18,29 @@ export function Nav() {
           >
             How it works
           </a>
-          <a
-            href="/login"
-            className="hidden text-sm text-foreground/70 transition-colors hover:text-foreground md:inline"
-          >
-            Log in
-          </a>
-          <a
-            href="/signup"
-            className="cta-pill inline-flex items-center justify-center rounded-full bg-primary px-4 py-2 text-sm font-medium text-primary-foreground"
-          >
-            Sign Up
-          </a>
+          {session ? (
+            <Link
+              to="/timeline"
+              className="cta-pill inline-flex items-center justify-center rounded-full bg-primary px-4 py-2 text-sm font-medium text-primary-foreground"
+            >
+              Go to feed
+            </Link>
+          ) : (
+            <>
+              <Link
+                to="/login"
+                className="hidden text-sm text-foreground/70 transition-colors hover:text-foreground md:inline"
+              >
+                Log in
+              </Link>
+              <Link
+                to="/signup"
+                className="cta-pill inline-flex items-center justify-center rounded-full bg-primary px-4 py-2 text-sm font-medium text-primary-foreground"
+              >
+                Sign Up
+              </Link>
+            </>
+          )}
         </nav>
       </div>
     </header>
