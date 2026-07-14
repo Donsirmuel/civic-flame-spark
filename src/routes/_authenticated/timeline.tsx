@@ -187,7 +187,38 @@ function PostRow({ post }: { post: Post }) {
             </button>
           </div>
 
-          <p className="mt-2 text-[15px] leading-relaxed text-foreground">{post.body}</p>
+          <p className="mt-2 whitespace-pre-wrap text-[15px] leading-relaxed text-foreground">
+            {post.body}
+          </p>
+
+          {post.image_url && (
+            <div className="mt-3 overflow-hidden rounded-2xl border border-hairline/60">
+              <img
+                src={post.image_url}
+                alt="attachment"
+                className="max-h-[420px] w-full object-cover"
+              />
+            </div>
+          )}
+
+          {post.poll && (
+            <div className="mt-3 space-y-2 rounded-2xl border border-hairline/60 bg-muted/30 p-3">
+              {post.poll.options.map((o, i) => (
+                <button
+                  key={i}
+                  className="group/opt flex w-full items-center justify-between rounded-full border border-hairline bg-background px-4 py-2 text-sm font-medium text-foreground transition-colors hover:border-primary hover:bg-primary/5"
+                >
+                  <span>{o.text}</span>
+                  <span className="text-xs text-foreground/50 group-hover/opt:text-primary">
+                    {o.votes}
+                  </span>
+                </button>
+              ))}
+              <p className="pt-1 text-[11px] uppercase tracking-[0.14em] text-foreground/50">
+                Poll · tap to vote
+              </p>
+            </div>
+          )}
 
           {post.official_reply && (
             <div className="mt-3 rounded-xl border border-primary/25 bg-primary/[0.045] p-3.5">
@@ -213,6 +244,11 @@ function PostRow({ post }: { post: Post }) {
               icon={<ArrowUp className="h-4 w-4" />}
               label={post.upvote_count.toLocaleString()}
               hoverClass="hover:text-primary hover:bg-primary/10"
+            />
+            <ActionButton
+              icon={<MessageCircle className="h-4 w-4" />}
+              label={String(Math.max(0, Math.round(post.upvote_count / 40)))}
+              hoverClass="hover:text-foreground hover:bg-muted"
             />
             <ActionButton
               icon={<Repeat2 className="h-4 w-4" />}
