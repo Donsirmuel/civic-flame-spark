@@ -115,18 +115,8 @@ function TimelinePage() {
         </nav>
       </header>
 
-      {/* Composer (view-only for now) */}
-      <div className="border-b border-hairline/60 px-6 py-4">
-        <div className="flex items-center gap-3 rounded-2xl border border-dashed border-hairline bg-muted/30 px-4 py-3 text-sm text-foreground/60">
-          <Sparkles className="h-4 w-4 text-accent" />
-          <span className="flex-1">
-            Posting opens soon — this feed is read-only while officials get onboarded.
-          </span>
-          <span className="hidden rounded-full border border-hairline px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.16em] text-foreground/60 sm:inline">
-            View only
-          </span>
-        </div>
-      </div>
+      {/* Composer */}
+      <Composer />
 
       {/* Feed */}
       <section>
