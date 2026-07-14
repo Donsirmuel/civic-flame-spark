@@ -6,14 +6,15 @@ import {
   Bookmark,
   Landmark,
   MapPin,
+  MessageCircle,
   MoreHorizontal,
   Repeat2,
   Share2,
-  Sparkles,
 } from "lucide-react";
 import { formatDistanceToNow } from "date-fns";
 import { useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
+import { Composer } from "@/components/app/Composer";
 
 type Post = {
   id: string;
@@ -28,6 +29,8 @@ type Post = {
   official_reply_title: string | null;
   status: string;
   created_at: string;
+  image_url?: string | null;
+  poll?: { question: string; options: { text: string; votes: number }[] } | null;
 };
 
 const TABS = ["For you", "Verified", "My region", "Trending"] as const;
