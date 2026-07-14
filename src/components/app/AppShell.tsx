@@ -4,16 +4,19 @@ import {
   Home,
   LogOut,
   MessageSquare,
+  Moon,
   Search,
   Settings,
   ShieldCheck,
   Sparkles,
+  Sun,
   UserRound,
 } from "lucide-react";
 import type { ComponentType, ReactNode } from "react";
 import { useQueryClient } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { useSession } from "@/hooks/use-session";
+import { useTheme } from "@/hooks/use-theme";
 
 type NavItem = {
   to: "/timeline" | "/notifications" | "/messages" | "/profile" | "/settings";
@@ -34,6 +37,7 @@ export function AppShell({ children }: { children: ReactNode }) {
   const navigate = useNavigate();
   const qc = useQueryClient();
   const { session } = useSession();
+  const { theme, toggle } = useTheme();
   const pathname = useRouterState({ select: (s) => s.location.pathname });
 
   const email = session?.user.email ?? "";
@@ -103,6 +107,14 @@ export function AppShell({ children }: { children: ReactNode }) {
               <p className="truncate text-sm font-semibold">{displayName}</p>
               <p className="truncate text-xs text-foreground/60">{handle}</p>
             </div>
+            <button
+              onClick={toggle}
+              aria-label="Toggle theme"
+              title={theme === "dark" ? "Switch to light" : "Switch to dark"}
+              className="flex h-8 w-8 items-center justify-center rounded-full text-foreground/60 transition-colors hover:bg-muted hover:text-foreground"
+            >
+              {theme === "dark" ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+            </button>
             <button
               onClick={signOut}
               aria-label="Sign out"
