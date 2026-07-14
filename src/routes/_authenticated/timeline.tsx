@@ -6,14 +6,15 @@ import {
   Bookmark,
   Landmark,
   MapPin,
+  MessageCircle,
   MoreHorizontal,
   Repeat2,
   Share2,
-  Sparkles,
 } from "lucide-react";
 import { formatDistanceToNow } from "date-fns";
 import { useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
+import { Composer } from "@/components/app/Composer";
 
 type Post = {
   id: string;
@@ -28,6 +29,8 @@ type Post = {
   official_reply_title: string | null;
   status: string;
   created_at: string;
+  image_url?: string | null;
+  poll?: { question: string; options: { text: string; votes: number }[] } | null;
 };
 
 const TABS = ["For you", "Verified", "My region", "Trending"] as const;
@@ -112,18 +115,8 @@ function TimelinePage() {
         </nav>
       </header>
 
-      {/* Composer (view-only for now) */}
-      <div className="border-b border-hairline/60 px-6 py-4">
-        <div className="flex items-center gap-3 rounded-2xl border border-dashed border-hairline bg-muted/30 px-4 py-3 text-sm text-foreground/60">
-          <Sparkles className="h-4 w-4 text-accent" />
-          <span className="flex-1">
-            Posting opens soon — this feed is read-only while officials get onboarded.
-          </span>
-          <span className="hidden rounded-full border border-hairline px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.16em] text-foreground/60 sm:inline">
-            View only
-          </span>
-        </div>
-      </div>
+      {/* Composer */}
+      <Composer />
 
       {/* Feed */}
       <section>
@@ -194,7 +187,38 @@ function PostRow({ post }: { post: Post }) {
             </button>
           </div>
 
-          <p className="mt-2 text-[15px] leading-relaxed text-foreground">{post.body}</p>
+          <p className="mt-2 whitespace-pre-wrap text-[15px] leading-relaxed text-foreground">
+            {post.body}
+          </p>
+
+          {post.image_url && (
+            <div className="mt-3 overflow-hidden rounded-2xl border border-hairline/60">
+              <img
+                src={post.image_url}
+                alt="attachment"
+                className="max-h-[420px] w-full object-cover"
+              />
+            </div>
+          )}
+
+          {post.poll && (
+            <div className="mt-3 space-y-2 rounded-2xl border border-hairline/60 bg-muted/30 p-3">
+              {post.poll.options.map((o, i) => (
+                <button
+                  key={i}
+                  className="group/opt flex w-full items-center justify-between rounded-full border border-hairline bg-background px-4 py-2 text-sm font-medium text-foreground transition-colors hover:border-primary hover:bg-primary/5"
+                >
+                  <span>{o.text}</span>
+                  <span className="text-xs text-foreground/50 group-hover/opt:text-primary">
+                    {o.votes}
+                  </span>
+                </button>
+              ))}
+              <p className="pt-1 text-[11px] uppercase tracking-[0.14em] text-foreground/50">
+                Poll · tap to vote
+              </p>
+            </div>
+          )}
 
           {post.official_reply && (
             <div className="mt-3 rounded-xl border border-primary/25 bg-primary/[0.045] p-3.5">
@@ -220,6 +244,11 @@ function PostRow({ post }: { post: Post }) {
               icon={<ArrowUp className="h-4 w-4" />}
               label={post.upvote_count.toLocaleString()}
               hoverClass="hover:text-primary hover:bg-primary/10"
+            />
+            <ActionButton
+              icon={<MessageCircle className="h-4 w-4" />}
+              label={String(Math.max(0, Math.round(post.upvote_count / 40)))}
+              hoverClass="hover:text-foreground hover:bg-muted"
             />
             <ActionButton
               icon={<Repeat2 className="h-4 w-4" />}
