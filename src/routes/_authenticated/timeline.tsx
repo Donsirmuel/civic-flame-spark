@@ -1,20 +1,12 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
-import {
-  ArrowUp,
-  BadgeCheck,
-  Bookmark,
-  Landmark,
-  MapPin,
-  MessageCircle,
-  MoreHorizontal,
-  Repeat2,
-  Share2,
-} from "lucide-react";
-import { formatDistanceToNow } from "date-fns";
 import { useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { Composer } from "@/components/app/Composer";
+import { CaseFileCard, type CasePost } from "@/components/app/CaseFileCard";
+
+type Post = CasePost;
+
 
 type Post = {
   id: string;
