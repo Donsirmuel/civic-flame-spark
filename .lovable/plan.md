@@ -1,110 +1,102 @@
-## Concept — "The People's Broadsheet"
+## Two originals to replace the Shobs-y landing and the Twitter-y timeline
 
-CivicNet's landing page borrows the visual language of a modern independent newspaper — the town square in print form — and fuses it with the intimacy of a social feed. The metaphor tells the story before the copy does: *your voice, set in type big enough for a minister to read.*
+### 1. Landing — "Constituency Map-first"
 
-One page. No dashboard-look. Every pixel earns its place.
+The whole hero becomes a stylized Nigeria. No product screenshot, no floating tweet card.
 
-### The signature moves
+**Layout**
+- Full-bleed background: a hand-drawn / SVG map of Nigeria (36 states + FCT), rendered in the ink/ochre palette we already use. Not a real Google/Mapbox map — a designed one. Ships as a single SVG asset so it stays fast and themable.
+- Compact left rail (~380px) holds the wordmark, a short headline ("Every voice has a constituency."), one sentence of body copy, and the two CTAs (Sign Up as a Citizen / I'm a Government Official — both already routed to `/signup`).
+- Right side is the map, taking ~65% of the viewport.
 
-1. **Broadsheet masthead nav** — thin rule top and bottom, tiny uppercase "ISSUE 001 · EST. 2026 · YOUR REGION" ticker on the left, wordmark centered, single **Sign Up** pill on the right. No 6-link nav bar. Just: `Manifesto` · `How it works` · **Sign Up**.
+**What lives on the map**
+- ~14 pulsing pins scattered across real LGAs (Nnewi, Ikeja, Kano, Port Harcourt, Jos, Ibadan, Maiduguri, Abuja, etc.). Pin color encodes status (open / in progress / resolved).
+- Hovering a pin pops a small card: citizen grievance excerpt + "Answered by Hon. X" (or "Awaiting response"). Cards use the same case-file styling as the timeline so the landing previews the product.
+- One pin is "active" by default on load and cycles every ~4s so the page feels alive without interaction.
+- A live counter strip pinned to the map's bottom edge: "1,284 grievances today · 402 official replies · 37 LGAs active" (static seeded numbers, no backend call).
 
-2. **Hero — the front page**
-   - Eyebrow (tiny uppercase, ochre): `A civic network for developing democracies`
-   - Headline (massive DM Serif Display, mixed roman + italic, tight leading):
-     *"Speak up.*
-     Be heard.
-     ***Be answered.***"
-   - The last line's "answered" gets an ochre hand-drawn underline.
-   - Sub (Plus Jakarta Sans, warm charcoal): two lines about connecting citizens to verified officials from local wards to federal ministries.
-   - CTA cluster: solid green **Sign Up as a Citizen** (primary) + ghost outlined **I'm a Government Official** (secondary, with a tiny verified-badge checkmark icon).
-   - Trust microline underneath: `Verified officials · Public accountability · Free forever`.
+**Below the fold** (kept minimal, no more Shobs-y editorial chapters)
+- One horizontal "How it moves" strip: three tight steps (Post → Route → Answer) as small illustrated tiles, not numbered book chapters.
+- One quiet closing band with the sign-up CTA.
+- Existing Marquee, Chapters, TwoSides, ClosingBand landing sections get removed — the map does the storytelling.
 
-3. **The Visual Anchor — a floating "Civic Feed" card**
-   Occupies the right half on desktop, drops below hero on mobile. Not a stock photo — a **designed UI mock** rendered in pure HTML/CSS:
-   - Cream card, rounded-2xl, warm shadow, subtle 1px green border.
-   - Header strip: "LIVE · Nnewi North LGA" with a pulsing ochre dot.
-   - Post 1: citizen avatar (initials), *"The community borehole in Umudim has been dry for 3 weeks. Please."* — 412 upvotes, "Escalated to LGA Chair" badge.
-   - Response chip below it: green tinted card, small badge `✓ VERIFIED OFFICIAL`, name + title (`Hon. A. Okeke · LGA Chairman`), one-line reply `"Repair team dispatched today. Photo update by Friday."`
-   - Post 2 (peeking, faded): "Streetlights on Market Road…"
-   - Subtle rotation (-2deg), slight parallax feel via layered offset shadow. This card IS the product demo.
+**Motion**
+- Pins fade + scale in with a stagger on mount.
+- Active pin has a soft ochre ripple.
+- Hover card slides up 4px with a shadow lift.
+- Nothing scroll-jacky.
 
-4. **Section break — a running marquee**
-   Full-width thin band, warm dark green background, cream text scrolling slowly:
-   `GRIEVANCES · OPINIONS · POLICY · TRANSPARENCY · GRASSROOTS → FEDERAL · GRIEVANCES · OPINIONS ·` (repeat)
-   Tiny ochre asterisks between words. Signals rhythm and gives the page its "editorial pulse."
+### 2. Timeline — "Thread-as-Case-File"
 
-5. **Features — "Chapters," not a boring 3-column grid**
-   Six features rendered as a **numbered manuscript list** — big italic serif numeral (`I.`, `II.`, `III.`…) hanging in the left margin, feature title in bold sans, one-sentence description, thin hairline divider between each. Two columns on desktop, one on mobile. Reads like a table of contents.
-   - I. Post grievances and opinions
-   - II. Verified officials, badged and accountable
-   - III. Follow issues from ward to federal
-   - IV. Upvotes surface what the community cares about
-   - V. Track responses, watch resolutions
-   - VI. Moderated, safe, no anonymous bullying
+Every post is a case-file card, not a tweet row. The feed reads like a public docket.
 
-6. **The "Two Sides" strip** — a quiet split module
-   Single row, two halves separated by a thin vertical hairline:
-   - Left (cream): "For citizens" — one sentence, tiny arrow link `Sign up →`
-   - Right (deep green, cream text): "For officials" — one sentence, tiny arrow link `Request verification →`
-   Restrained, editorial, no card chrome.
+**Card anatomy** (replaces the current `PostRow`)
 
-7. **Closing CTA — the front-page banner**
-   Full-width ochre band. Enormous italic serif: *"The square is open."* Below: single green **Sign Up** button. Tiny line beneath: `No cost. No noise. Just voices.`
+```text
+┌──────────────────────────────────────────────────────┐
+│  CASE #NN-042  ·  WATER · Ward 4, Nnewi North LGA    │  ← status ribbon on the right
+├──────────────────────────────────────────────────────┤
+│  FILED BY                                             │
+│  ● Chinelo N.  ·  Citizen  ·  2h ago                 │
+│                                                       │
+│  "The borehole in Umudim has been dry for 3 weeks…"  │
+│  [optional image / poll]                             │
+│                                                       │
+│  ▸ 412 citizens signed on   ▸ 38 comments            │
+├──────────────────────────────────────────────────────┤
+│  ESCALATION LADDER                                    │
+│  ● Ward 4  →  ● LGA Chair  →  ○ State  →  ○ Federal  │  ← filled dots = reached
+├──────────────────────────────────────────────────────┤
+│  OFFICIAL RESPONSE  ✓ Verified                       │
+│  Hon. A. Okeke  ·  LGA Chairman  ·  1h ago           │
+│  "Repair team on site today. Photo update Friday."   │
+├──────────────────────────────────────────────────────┤
+│  Upvote · Comment · Repost · Bookmark · Share        │
+└──────────────────────────────────────────────────────┘
+```
 
-8. **Footer — the colophon**
-   Thin, single line at the top: `CIVICNET · A CIVIC NETWORK`. Below in a small grid: three tiny columns (Product · About · Legal, each with 2–3 links), then a colophon line: `Set in DM Serif Display & Plus Jakarta Sans. A final-year project by Samuel Olaonipekun · © 2026 · GitHub`.
+**Why this differs from Twitter**
+- Card has explicit sections (Filed by / Escalation / Response) with tiny uppercase labels — feels like a form, not a chat.
+- Escalation ladder is a first-class visual (dots + arrows), showing where the grievance currently sits and how far it can travel. Dots fill as the case moves up.
+- Case number + category tag in the header ribbon.
+- Unanswered cases show a dashed "Awaiting response" section instead of the reply block, so silence is visible.
+- Status ribbon color-codes the whole card edge (open = neutral, in progress = ochre, resolved = green, escalated = red).
 
-### Design system (into `src/styles.css` as oklch tokens)
+**Feed page shell**
+- Keep the sticky header + tabs (For you / Verified / My region / Trending) — those are fine.
+- Composer stays but gets a subtle "File a new grievance" framing instead of a tweet box (label change only, functionality unchanged).
+- Right rail: replace "Trending regions" with a small **live constituency map** — same asset as the landing, but at ~280px wide, showing where recent cases in the current tab are located. Click a pin → filters the feed to that LGA.
+- Left sidebar and bottom mobile nav are unchanged.
 
-- `--background` warm cream `#F4EFE6`
-- `--foreground` warm near-black `#1A1A1A`
-- `--primary` deep community green `#0F5132` (buttons, verified accents, dark band)
-- `--accent` ochre `#E9C46A` (underline, dot, asterisks, closing band)
-- `--muted` `#E8E2D3` (subtle card surface)
-- `--border` warm taupe hairline
-- Radius: `--radius: 1rem` for cards, but many elements use hairline rules instead of rounded borders — editorial restraint.
+**Motion**
+- Cards fade+rise on first paint with a small stagger.
+- Escalation ladder dots pulse briefly when a case updates.
+- No hover-lift on the whole card (too much at feed density) — just a subtle background tint.
 
-### Typography
+### Scope of this change
 
-- **Display**: DM Serif Display (400 + 400 italic) — headlines, chapter numerals, closing banner.
-- **Body & UI**: Plus Jakarta Sans (400/500/600/700).
-- Loaded via `<link>` tags in `src/routes/__root.tsx` `head()`, NOT via `@import` in `styles.css` (Tailwind v4 rule).
+**Files touched**
+- `src/routes/index.tsx` — swap sections for the new map hero + minimal below-the-fold.
+- `src/components/landing/Hero.tsx` — rewritten as `MapHero`.
+- New: `src/components/landing/NigeriaMap.tsx` (SVG map + pin layer + hover cards).
+- New: `src/components/landing/HowItMoves.tsx` (3-tile strip).
+- Removed from landing render: `Marquee`, `Chapters`, `TwoSides`, `CivicFeedCard` (files can be deleted or left unused — I'll delete to keep the tree clean).
+- `src/routes/_authenticated/timeline.tsx` — replace `PostRow` with a new `CaseFileCard` component.
+- New: `src/components/app/CaseFileCard.tsx`, `src/components/app/EscalationLadder.tsx`.
+- `src/components/app/AppShell.tsx` — swap the right-rail "Trending regions" block for a small `<NigeriaMap variant="rail" />`.
+- `src/components/app/Composer.tsx` — relabel "What's happening…" → "File a grievance…" and section chip copy; no logic change.
+- `src/styles.css` — add ribbon color utilities and ladder-dot styles.
 
-### Texture & motion (restrained — one hero moment, not scattered micro-interactions)
+**Out of scope**
+- No schema changes. The existing `posts` table already has `region`, `scope`, `status`, `official_reply*` — the case file reads all of it. Escalation ladder is derived from `scope` for now (LGA → Ward-only filled; STATE → up to State filled; FEDERAL → all filled). Real ladder history is a later feature.
+- No new dependencies. Map is hand-authored SVG.
+- Auth, routing, notifications, messages, profile, settings pages: unchanged.
 
-- Subtle SVG grain overlay on `body::before` at ~4% opacity — gives the cream a paper feel.
-- One hero entrance on load: eyebrow → headline lines stagger up with a small blur-to-focus. The feed card fades in with a slight settle-into-place rotation.
-- Feed card's live dot pulses (CSS keyframe).
-- Marquee band scrolls infinitely via CSS animation.
-- Feature chapters fade in on scroll (framer-motion, once, quick).
-- No hover animations on every element. Buttons get a warm color deepen only.
+### Order of work
 
-### Technical plan
-
-**Files to create/edit:**
-- `src/styles.css` — replace default tokens with the warm palette above; add grain-overlay utility and marquee keyframe.
-- `src/routes/__root.tsx` — update `head()` metadata (title "CivicNet — Speak up. Be heard. Be answered.", matching description, `og:title` / `og:description` / `og:type=website` / `twitter:card`). Add Google Fonts `<link>` tags for DM Serif Display and Plus Jakarta Sans.
-- `src/routes/index.tsx` — replace placeholder; compose the landing sections. Add its own `head()` with self-referencing `og:url` and a leaf `og:image` once the hero anchor is captured (skip for now — no meaningful image URL yet, per head-metadata rules).
-- `src/components/landing/Nav.tsx`
-- `src/components/landing/Hero.tsx` (headline + CTAs)
-- `src/components/landing/CivicFeedCard.tsx` (the designed UI mock — pure JSX, no image)
-- `src/components/landing/Marquee.tsx`
-- `src/components/landing/Chapters.tsx` (numbered features)
-- `src/components/landing/TwoSides.tsx`
-- `src/components/landing/ClosingBand.tsx`
-- `src/components/landing/Footer.tsx`
-
-**Dependencies to install:** `framer-motion` (entrance animations only).
-
-**CTAs:** `Sign Up` and `Request verification` will scroll to the closing band (`#join`) since sign-up/auth pages don't exist yet. Say the word if you'd rather they link to placeholder routes or open a waitlist form (waitlist form would need Lovable Cloud).
-
-**No backend in this pass.** Landing page only. Auth, sign-up flows, feed backend, and role/verification system are separate follow-up work.
-
-### What I'm intentionally NOT doing
-
-- No stock photos of "diverse citizens smiling at phones."
-- No 3-column icon-grid feature section.
-- No "Trusted by / As seen in" logo strip (you don't have that yet, and faking it kills credibility).
-- No purple gradients, no default Shadcn button styling, no generic Inter/Poppins.
-- No testimonials, stats block, or FAQ (you deselected them, and the page is stronger without them).
-- No hero image asset — the designed feed card IS the hero visual, and it doubles as a live product demo.
+1. Build `NigeriaMap` (SVG + pin data + hover card) — the shared primitive both pages use.
+2. Rebuild landing (`MapHero`, `HowItMoves`, updated `index.tsx`, delete unused landing sections).
+3. Build `CaseFileCard` + `EscalationLadder`, wire into `timeline.tsx`.
+4. Swap right rail in `AppShell` to the rail-variant map.
+5. Relabel composer copy.
+6. Verify build + take a Playwright screenshot of `/` and `/timeline` to confirm the new look.
