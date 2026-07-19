@@ -133,9 +133,10 @@ export function Composer() {
             value={body}
             onChange={(e) => setBody(e.target.value.slice(0, MAX + 40))}
             rows={2}
-            placeholder="What's happening in your community?"
+            placeholder="File a grievance — what needs a public reply?"
             className="w-full resize-none bg-transparent text-[16px] leading-relaxed text-foreground placeholder:text-foreground/45 focus:outline-none"
           />
+
 
           {/* Image preview */}
           {image && (
@@ -296,8 +297,9 @@ export function Composer() {
                 disabled={!body.trim() || remaining < 0}
                 className="rounded-full bg-primary px-5 py-2 text-sm font-semibold text-primary-foreground shadow-sm transition-all hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-40"
               >
-                Post
+                File case
               </button>
+
             </div>
           </div>
         </div>
