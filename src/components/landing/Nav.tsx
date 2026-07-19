@@ -13,11 +13,12 @@ export function Nav() {
         </a>
         <nav className="flex items-center gap-2 md:gap-6">
           <a
-            href="#chapters"
+            href="#how"
             className="hidden text-sm text-foreground/70 transition-colors hover:text-foreground md:inline"
           >
             How it works
           </a>
+
           {session ? (
             <Link
               to="/timeline"
